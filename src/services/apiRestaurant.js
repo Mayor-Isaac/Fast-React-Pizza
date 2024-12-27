@@ -1,16 +1,16 @@
-// const API_URL = "https://react-fast-pizza-api.jonas.io/api";
+const API_URL = "https://react-fast-pizza-api.jonas.io/api";
 
-const MENU_API = "http://localhost:9000/data";
+// const MENU_API = "http://localhost:9000/data";
 
 export async function getMenu() {
-  // const res = await fetch(`${API_URL}/menu`);
-  const res = await fetch(MENU_API);
+  const res = await fetch(`${API_URL}/menu`);
+  // const res = await fetch(MENU_API);
 
   // fetch won't throw error on 400 errors (e.g. when URL is wrong), so we need to do it manually. This will then go into the catch block, where the message is set
   if (!res.ok) throw Error("Failed getting menu");
 
-  // const {data} = await res.json();
-  const data = await res.json();
+  const { data } = await res.json();
+  // const data = await res.json();
   // console.log(data);
 
   return data;
