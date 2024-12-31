@@ -51,13 +51,13 @@ function CreateOrder() {
       <Form method="POST">
         <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center">
           <label className="sm:basis-40">First Name</label>
-          <Input type="text" name="customer"/>
+          <Input type="text" name="customer" defaultValue={ username} />
         </div>
 
         <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center">
           <label className="sm:basis-40">Phone number</label>
           <div className="grow">
-            <Input type="tel" name="phone" defaultValue={ username} />
+            <Input type="tel" name="phone" />
             {formErrors?.phone && <p className="text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-full">{formErrors.phone}</p>}
           </div>
         </div>

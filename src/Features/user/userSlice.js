@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 /*function getPosition() {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -21,25 +21,26 @@ async function fetchAddress() {
   return { position, address };
 }*/
 
-
-
 const initialState = {
-  username : "",
-}
+  username: '',
+};
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     updateName(state, action) {
-      state.username = action.payload
-    }
-  }
-})
+      state.username = action.payload;
+    },
+  },
+});
 
-export const { updateName } = userSlice.actions
+export const { updateName } = userSlice.actions;
 
-export default userSlice.reducer
+export default userSlice.reducer;
+
+export const getUserName = (state) => state.user.username;
+
 // const store = configureStore({
 //   reducer:userSlice.reducers
 // })
