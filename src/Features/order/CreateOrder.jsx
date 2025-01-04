@@ -8,40 +8,15 @@ import { getCart, getTotalCartPrice } from '../cart/cartSlice';
 import EmptyCart from '../cart/EmptyCart';
 import { formatCurrency } from '../../utils/helpers';
 import { fetchAddress } from '../user/userSlice';
+
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str
   );
 
-// const fakeCart = [
-//   {
-//     pizzaId: 12,
-//     name: "Mediterranean",
-//     quantity: 2,
-//     unitPrice: 16,
-//     totalPrice: 32,
-//   },
-//   {
-//     pizzaId: 6,
-//     name: "Vegetale",
-//     quantity: 1,
-//     unitPrice: 13,
-//     totalPrice: 13,
-//   },
-//   {
-//     pizzaId: 11,
-//     name: "Spinach and Mushroom",
-//     quantity: 1,
-//     unitPrice: 15,
-//     totalPrice: 15,
-//   },
-// ];
-
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === 'submitting';
   const {
     username,
     status: addressStatus,
@@ -49,13 +24,16 @@ function CreateOrder() {
     address,
     error: errorAddress,
   } = useSelector((state) => state.user);
-
   const isLoadingAddress = addressStatus === 'loading';
 
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
+
   const formErrors = useActionData();
+  const dispatch = useDispatch();
+
   const cart = useSelector(getCart);
   const totalCartPrice = useSelector(getTotalCartPrice);
-  const dispatch = useDispatch();
   const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
   const totalPrice = totalCartPrice + priorityPrice;
 
@@ -94,13 +72,13 @@ function CreateOrder() {
               defaultValue={address}
             />
             {addressStatus === 'error' && (
-              <p className="mt-2 rounded-full bg-red-100 p-2 text-xs text-red-700">
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
                 {errorAddress}
               </p>
             )}
           </div>
 
-          {position.latitude && position.longitude && (
+          {!position.latitude && !position.longitude && (
             <span className="absolute right-[3px] top-[3px] z-10 md:right-[5px] md:top-[5px]">
               <Button
                 type="small"
